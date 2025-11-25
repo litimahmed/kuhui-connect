@@ -14,7 +14,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [activeTab, setActiveTab] = useState<"signin" | "signup">("signin");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,16 +37,6 @@ const Login = () => {
                 <p className="text-base text-muted-foreground">
                   Secure login to your queue management system
                 </p>
-              </div>
-
-              {/* Tabs */}
-              <div className="flex gap-3 mb-10">
-                <button onClick={() => setActiveTab("signin")} className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-all duration-200 ${activeTab === "signin" ? "bg-primary text-primary-foreground shadow-md" : "bg-transparent text-muted-foreground hover:text-foreground"}`}>
-                  Sign In
-                </button>
-                <button onClick={() => setActiveTab("signup")} className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-all duration-200 ${activeTab === "signup" ? "bg-primary text-primary-foreground shadow-md" : "bg-transparent text-muted-foreground hover:text-foreground"}`}>
-                  Sign Up
-                </button>
               </div>
 
               {/* Form */}
