@@ -1,0 +1,23 @@
+import { LoginPayload, LoginResponse } from "@/types/auth";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+export const loginAdmin = async (
+  payload: LoginPayload
+): Promise<LoginResponse> => {
+  const response = await fetch(`${API_BASE_URL}/loginAdmin/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    // You can handle different error status codes here
+    const errorData = await response.json();
+    throw new Error(errorData.message || "An unknown error occurred.");
+  }
+
+  return response.json();
+};
