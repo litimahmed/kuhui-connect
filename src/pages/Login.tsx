@@ -23,60 +23,114 @@ const Login = () => {
     }
     await login({ email, password });
   };
-  return <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4 md:p-8">
-      <div className="w-full max-w-6xl bg-card rounded-3xl shadow-2xl overflow-hidden">
+  return <div className="min-h-screen flex items-center justify-center relative overflow-hidden p-4 md:p-8" style={{ background: 'var(--gradient-background)' }}>
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-glow/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
+      </div>
+      
+      <div className="w-full max-w-6xl bg-card/80 backdrop-blur-xl rounded-3xl overflow-hidden relative z-10 animate-scale-in" style={{ boxShadow: 'var(--shadow-strong)' }}>
         <div className="grid md:grid-cols-2 min-h-[600px]">
           {/* Left Column - Form */}
-          <div className="flex items-center justify-center p-10 md:p-14">
+          <div className="flex items-center justify-center p-10 md:p-14 relative">
             <div className="w-full max-w-md">
+              {/* Decorative corner accent */}
+              <div className="absolute top-8 left-8 w-20 h-20 border-t-4 border-l-4 border-primary/30 rounded-tl-2xl"></div>
+              
               {/* Header */}
-              <div className="mb-12">
-                <h1 className="text-4xl text-primary mb-3 font-extrabold">
-                  ​Toorrii Admin    
+              <div className="mb-12 animate-fade-in">
+                <div className="inline-block mb-4 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                  Admin Portal
+                </div>
+                <h1 className="text-5xl text-primary mb-4 font-extrabold tracking-tight">
+                  Toorrii
                 </h1>
-                <p className="text-base text-muted-foreground">
-                  Secure login to your queue management system
+                <p className="text-lg text-muted-foreground">
+                  Queue Management Dashboard
                 </p>
               </div>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="h-12 bg-muted/50 border-border/50 rounded-xl text-sm placeholder:text-muted-foreground/60" disabled={isLoading} />
+              <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <div className="group">
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground/70 mb-2 transition-colors group-focus-within:text-primary">
+                    Email Address
+                  </label>
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    placeholder="admin@toorrii.com" 
+                    value={email} 
+                    onChange={e => setEmail(e.target.value)} 
+                    className="h-14 bg-muted/30 border-2 border-border/50 rounded-xl text-base placeholder:text-muted-foreground/50 transition-all duration-300 focus:border-primary focus:shadow-lg focus:shadow-primary/10 focus:bg-background" 
+                    disabled={isLoading} 
+                  />
                 </div>
 
-                <div>
-                  <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="h-12 bg-muted/50 border-border/50 rounded-xl text-sm placeholder:text-muted-foreground/60" disabled={isLoading} />
+                <div className="group">
+                  <label htmlFor="password" className="block text-sm font-medium text-foreground/70 mb-2 transition-colors group-focus-within:text-primary">
+                    Password
+                  </label>
+                  <Input 
+                    id="password" 
+                    type="password" 
+                    placeholder="••••••••" 
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)} 
+                    className="h-14 bg-muted/30 border-2 border-border/50 rounded-xl text-base placeholder:text-muted-foreground/50 transition-all duration-300 focus:border-primary focus:shadow-lg focus:shadow-primary/10 focus:bg-background" 
+                    disabled={isLoading} 
+                  />
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="remember" checked={rememberMe} onCheckedChange={checked => setRememberMe(checked as boolean)} disabled={isLoading} className="border-muted-foreground/30" />
-                    <label htmlFor="remember" className="text-sm text-muted-foreground cursor-pointer select-none">
-                      Remember me
+                <div className="flex items-center justify-between pt-2">
+                  <div className="flex items-center space-x-3 group">
+                    <Checkbox 
+                      id="remember" 
+                      checked={rememberMe} 
+                      onCheckedChange={checked => setRememberMe(checked as boolean)} 
+                      disabled={isLoading} 
+                      className="border-2 border-muted-foreground/30 data-[state=checked]:bg-primary data-[state=checked]:border-primary transition-all" 
+                    />
+                    <label htmlFor="remember" className="text-sm text-muted-foreground cursor-pointer select-none group-hover:text-foreground transition-colors">
+                      Keep me signed in
                     </label>
                   </div>
-                  <button type="button" className="text-sm text-primary hover:text-primary-hover transition-colors duration-200 font-medium" disabled={isLoading}>
+                  <button 
+                    type="button" 
+                    className="text-sm text-primary hover:text-primary-hover transition-all duration-200 font-medium relative after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full" 
+                    disabled={isLoading}
+                  >
                     Forgot Password?
                   </button>
                 </div>
 
-                <Button type="submit" className="w-full h-12 bg-primary hover:bg-primary-hover text-primary-foreground rounded-xl text-sm font-medium shadow-md transition-all duration-200" disabled={isLoading}>
-                  {isLoading ? <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Signing in...
-                    </> : "Login"}
+                <Button 
+                  type="submit" 
+                  className="w-full h-14 rounded-xl text-base font-semibold shadow-lg transition-all duration-300 mt-8 relative overflow-hidden group" 
+                  style={{ background: 'var(--gradient-primary)' }}
+                  disabled={isLoading}
+                >
+                  <span className="relative z-10 flex items-center justify-center">
+                    {isLoading ? <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Signing in...
+                      </> : "Sign In to Dashboard"}
+                  </span>
+                  <div className="absolute inset-0 bg-primary-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Button>
               </form>
 
               {/* Signature Section */}
-              <div className="mt-10 pt-8">
-                <Separator className="mb-8" />
-                <div className="text-center space-y-2">
-                  <p className="text-xs font-medium text-muted-foreground">
-                    Secure administrative access
-                  </p>
-                  <p className="text-xs text-muted-foreground/70">
+              <div className="mt-12 pt-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <Separator className="mb-8 bg-gradient-to-r from-transparent via-border to-transparent" />
+                <div className="text-center space-y-3">
+                  <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                    <span className="font-medium">Secured with 256-bit encryption</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground/60">
                     © 2024 Toorrii. All rights reserved.
                   </p>
                 </div>
@@ -86,7 +140,25 @@ const Login = () => {
 
           {/* Right Column - Gradient Image */}
           <div className="hidden md:block relative overflow-hidden">
-            <img src={loginGradient} alt="Abstract gradient background" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-glow to-accent opacity-20 mix-blend-overlay"></div>
+            <img 
+              src={loginGradient} 
+              alt="Abstract gradient background" 
+              className="absolute inset-0 w-full h-full object-cover scale-110 animate-[pulse_8s_ease-in-out_infinite]" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-card/50 via-transparent to-transparent"></div>
+            
+            {/* Decorative elements */}
+            <div className="absolute bottom-12 left-12 right-12 z-10">
+              <div className="backdrop-blur-md bg-card/10 rounded-2xl p-8 border border-primary-foreground/10">
+                <h3 className="text-2xl font-bold text-primary-foreground mb-3">
+                  Streamline Your Operations
+                </h3>
+                <p className="text-primary-foreground/80 text-sm leading-relaxed">
+                  Powerful queue management tools designed for efficiency and control. Monitor, manage, and optimize your workflow from one unified dashboard.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
